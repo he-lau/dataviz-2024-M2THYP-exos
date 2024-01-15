@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercice 1</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Exercice 1 - Laurent HE</h1>
+
+      <h2>Wikidata</h2>
+
+      <p>Liste des romans pour lequels une image est disponible.</p>
+
+      <h3>Requête SPAQL</h3>
+      <p style="width: 300px">
+        #defaultView:Timeline <br />
+        SELECT ?roman ?titreLabel ?date_de_publication ?nombre_de_pages
+        ?authorLabel ?image WHERE {<br />
+        ?roman wdt:P31 wd:Q8261.<br />
+        SERVICE wikibase:label { bd:serviceParam wikibase:language
+        "[AUTO_LANGUAGE],en". }<br />
+        OPTIONAL { ?roman wdt:P1476 ?titre. }<br />
+        OPTIONAL { ?roman wdt:P577 ?date_de_publication. }<br />
+        OPTIONAL { ?roman wdt:P50 ?author. }<br />
+        OPTIONAL { ?roman wdt:P1104 ?nombre_de_pages. }<br />
+        OPTIONAL { ?roman wdt:P18 ?image. }<br />
+        FILTER EXISTS { ?roman wdt:P18 [] }<br />
+        }<br />
+        LIMIT 100<br />
+      </p>
+      <h2>Visualisation</h2>
+      <iframe
+        style="width: 100vw; height: 60vh; border: none"
+        src="https://query.wikidata.org/embed.html#%23defaultView%3ATimeline%0ASELECT%20%3Froman%20%3FtitreLabel%20%3Fdate_de_publication%20%3Fnombre_de_pages%20%3FauthorLabel%20%3Fimage%20WHERE%20%7B%0A%20%20%3Froman%20wdt%3AP31%20wd%3AQ8261.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Froman%20wdt%3AP1476%20%3Ftitre.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Froman%20wdt%3AP577%20%3Fdate_de_publication.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Froman%20wdt%3AP50%20%3Fauthor.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Froman%20wdt%3AP1104%20%3Fnombre_de_pages.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Froman%20wdt%3AP18%20%3Fimage.%20%7D%0A%20%20FILTER%20EXISTS%20%7B%20%3Froman%20wdt%3AP18%20%5B%5D%20%7D%0A%7D"
+        referrerpolicy="origin"
+        sandbox="allow-scripts allow-same-origin allow-popups"
+      ></iframe>
+
+      <h2>RAWGraphs</h2>
+
+      <h3>Requête SPAQL</h3>
+      <p style="width: 300px">
+        SELECT ?roman ?titreLabel ?authorLabel WHERE {<br />
+        ?roman wdt:P31 wd:Q8261.<br />
+        SERVICE wikibase:label { bd:serviceParam wikibase:language
+        "[AUTO_LANGUAGE],en". }<br />
+        OPTIONAL { ?roman wdt:P1476 ?titre. }<br />
+        OPTIONAL { ?roman wdt:P577 ?date_de_publication. }<br />
+        OPTIONAL { ?roman wdt:P50 ?author. }<br />
+        }<br />
+        LIMIT 1000<br />
+      </p>
+
+      <h3>Répartition des auteurs</h3>
+      <div style="overflow: scroll; height: 500px">
+        <img src="circle_packing_author_10000.svg" alt="" />
+      </div>
+    </div>
+  </body>
+</html>
